@@ -1,29 +1,103 @@
-# Definition for singly-linked list.
 from typing import Optional
+from __future__ import annotations
 
 
 class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val: int = val
-        self.next: ListNode = next
+    def __init__(self, val=0, next: ListNode = None):
+        self.val = val
+        self.next = next
 
 
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        sum = 0
-        dummy = tail = ListNode(0)
-        while l1 or l2 or sum:
-            sum += (l1.val if l1 else 0) + (l2.val if l2 else 0)
-            tail.next = ListNode(val=(sum % 10))
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        usedChar = {}
+
+        for i in range(len(s)):
+            currentChar = s[i]
+            if currentChar in usedChar and start <= usedChar[currentChar]:
+                start = usedChar[currentChar] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+            usedChar[currentChar] = i
+        return maxLength
+
+    def logN(self):
+        Numbers = [5, 17, 33, 41, 55, 61]
+        Find = 55
+        low = 0
+        high = len(Numbers) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if Numbers[mid] > Find:
+                high = mid - 1
+            elif Numbers[mid] < Find:
+                low = mid + 1
+            else:
+                break
+        print(Numbers[mid])
+
+    def reverseStr(self, inputStr):
+        result = ''
+        for index in reversed(range(len(inputStr))):
+            result += inputStr[index]
+        return result
+
+    def palindromeStr(self, inputStr):
+        return inputStr == inputStr[::-1]
+
+    def mostChar(self, inputStr):
+        strList = {}
+        maxCount = 0
+        for i in range(len(inputStr)):
+            currentChar = inputStr[i]
+            strList[currentChar] = strList[currentChar] + \
+                1 if currentChar in strList else 1
+            maxCount = max(maxCount, strList[currentChar])
+        return maxCount
+
+    def fizzBuzz(self, inputNum):
+        result = ''
+        for i in range(1, inputNum+1):
+            temp = ''
+            if i % 3 == 0:
+                temp += 'Fizz'
+            if i % 5 == 0:
+                temp += 'Buzz'
+            result += "{} ".format(i if temp == "" else temp)
+        return result
+
+    def arrayChuck(self, arr: list[int], n: int) -> list[int] | list[list[int]]:
+        result: list[int] | list[list[int]] = []
+        temp: list[int] = []
+        for i in range(0, len(arr), n):
+            temp = arr[i:i+n]
+            if len(temp) < n:
+                for j in temp:
+                    result.append(j)
+            else:
+                result.append(temp)
+        return result
+
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if list1.val > list2.val:
+            list1, list2 = list2, list1
+        head = tail = ListNode(0)
+        while list1 or list2:
+            if list1.val < list2.val:
+                tail.next, num = ListNode(list1.val), list2.val
+            else:
+                tail.next, num = ListNode(list2.val), list1.val
             tail = tail.next
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
-            sum //= 10
-        return dummy.next
+            tail.next = ListNode(num)
+            tail = tail.next
+            list1 = list1.next if list1.next else None
+            list2 = list2.next if list2.next else None
+        return head.next
 
 
 sol = Solution()
-l1 = ListNode(2, ListNode(4, ListNode(3)))
-l2 = ListNode(5, ListNode(6, ListNode(
-    4, ListNode(0, ListNode(0, ListNode(9))))))
-sol.addTwoNumbers(l1, l2)
+list1 = ListNode(2, ListNode(4, ListNode(6)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+result = sol.mergeTwoLists(list1, list2)
+print(result)
