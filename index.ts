@@ -1,35 +1,34 @@
-// def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-
 class ListNode {
-  val?: number;
-  next?: ListNode;
-
-  constructor(val?: number, next?: ListNode) {
-    this.val = val;
-    this.next = next;
+  val: number;
+  next: ListNode | null;
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = (val === undefined ? 0 : val);
+    this.next = (next === undefined ? null : next);
   }
 }
 
-function addTwoNumbers(l1?: ListNode, l2?: ListNode) {
-  let sum = 0;
-  const dummy = new ListNode(0);
-  let tail = dummy;
-
-  while (l1 || l2 || sum > 0) {
-    sum += (l1?.val ?? 0) + (l2?.val ?? 0);
-    tail.next = new ListNode(sum % 10);
+function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
+  const head = new ListNode(0);
+  let tail = head;
+  while (list1 && list2) {
+    if (list1.val! < list2.val!) {
+      tail.next = list1;
+      list1 = list1.next ?? null;
+    } else {
+      tail.next = list2;
+      list2 = list2.next ?? null;
+    }
     tail = tail.next;
-    l1 = l1?.next ?? undefined;
-    l2 = l2?.next ?? undefined;
-    sum = Math.floor(sum / 10);
   }
-  return dummy.next;
-}
+  tail.next = list1 ? list1 : list2;
+
+  return head.next;
+};
 
 function main() {
-  const l1 = new ListNode(9, new ListNode(9));
-  const l2 = new ListNode(9, new ListNode(9, new ListNode(4, new ListNode(0, new ListNode(9)))));
-  console.dir(addTwoNumbers(l1, l2));
+  const l1 = new ListNode(1, new ListNode(4));
+  const l2 = new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(6, new ListNode(9)))));
+  console.dir(mergeTwoLists(l1, l2));
 }
 
 main();

@@ -80,19 +80,16 @@ class Solution:
         return result
 
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        if list1.val > list2.val:
-            list1, list2 = list2, list1
         head = tail = ListNode(0)
-        while list1 or list2:
+        while list1 and list2:
             if list1.val < list2.val:
-                tail.next, num = ListNode(list1.val), list2.val
+                tail.next = list1
+                list1 = list1.next
             else:
-                tail.next, num = ListNode(list2.val), list1.val
+                tail.next = list2
+                list2 = list2.next
             tail = tail.next
-            tail.next = ListNode(num)
-            tail = tail.next
-            list1 = list1.next if list1.next else None
-            list2 = list2.next if list2.next else None
+        tail.next = list1 if list1 else list2
         return head.next
 
 
