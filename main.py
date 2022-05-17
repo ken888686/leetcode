@@ -1,21 +1,15 @@
 class Solution:
-    def reverseVowels(self, s: str) -> str:
-        vowels = set('aeiouAEIOU')
-        strList = list(s)
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        map = {}
+        result = 0
         start = 0
-        end = len(s)-1
-        while start < end:
-            if s[start] in vowels and s[end] in vowels:
-                strList[start], strList[end] = s[end], s[start]
-            elif s[start] in vowels:
-                end -= 1
-                continue
-            elif s[end] in vowels:
-                start += 1
-                continue
-            start, end = start+1, end-1
-        return ''.join(strList)
+        for i in range(len(s)):
+            if s[i] in map:
+                start = max(map[s[i]]+1, start)
+            result = max(result, i - start + 1)
+            map[s[i]] = i
+        return result
 
 
 sol = Solution()
-print(sol.reverseVowels("initial"))
+print(sol.lengthOfLongestSubstring("dvdf"))
