@@ -2,19 +2,22 @@ from typing import List
 
 
 class Solution:
-    def sortedSquares(self, numberList: List[int]) -> List[int]:
-        result = [0]*len(numberList)
-        left, right = 0, len(numberList)-1
+    def reverse(self, numberList: List[int], left: int, right: int):
+        print(f"numberList:{numberList}, left:{left}, right:{right}")
         while left <= right:
-            leftNum, rightNum = abs(numberList[left]), abs(numberList[right])
-            if leftNum > rightNum:
-                result[right-left] = leftNum**2
-                left += 1
-            else:
-                result[right-left] = rightNum**2
-                right -= 1
-        return result
+            numberList[left], numberList[right] = numberList[right], numberList[left]
+            left += 1
+            right -= 1
+
+    def rotate(self, numberList: List[int], k: int) -> List[int]:
+        k %= len(numberList)
+        if k == 0:
+            return numberList
+        self.reverse(numberList, 0, len(numberList)-k-1)
+        self.reverse(numberList, len(numberList)-k, len(numberList)-1)
+        self.reverse(numberList, 0, len(numberList)-1)
+        return numberList
 
 
 sol = Solution()
-print(sol.sortedSquares([-9, -4, -2, -1, 0, 3, 5, 9, 10]))
+print(sol.rotate([1, 2, 3, 4, 5], 2))

@@ -1,19 +1,23 @@
-function lengthOfLongestSubstring(s: string): number {
-  let map: Map<string, number> = new Map();
-  let result = 0;
-  let start = 0;
-  for (let i = 0; i < s.length; i++) {
-    if (map.has(s[i])) {
-      start = Math.max(map.get(s[i]) + 1, start);
-    }
-    result = Math.max(result, i - start + 1);
-    map.set(s[i], i);
+function reverse(numberList: number[], left: number, right: number): void {
+  while (left <= right) {
+    let temp = numberList[left];
+    numberList[left] = numberList[right];
+    numberList[right] = temp;
+    left++;
+    right--;
   }
-  return result;
+}
+
+function rotate(numberList: number[], k: number): number[] {
+  k %= numberList.length;
+  reverse(numberList, 0, numberList.length - k - 1);
+  reverse(numberList, numberList.length - k, numberList.length - 1);
+  reverse(numberList, 0, numberList.length - 1);
+  return numberList;
 };
 
 function main() {
-  console.log(lengthOfLongestSubstring('dvdf'));
+  console.log(rotate([1, 2, 3], 44));
 }
 
 main();
