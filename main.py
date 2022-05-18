@@ -2,15 +2,13 @@ from typing import List
 
 
 class Solution:
-    def moveZeroes(self, numbers: List[int]) -> None:
-        left = 0
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        map = {}
         for i in range(len(numbers)):
-            if numbers[left] == 0 and numbers[i] != 0:
-                numbers[left], numbers[i] = numbers[i], numbers[left]
-            if numbers[left] != 0:
-                left += 1
-        print(numbers)
+            if target-numbers[i] in map:
+                return [map[target-numbers[i]]+1, i+1]
+            map[numbers[i]] = i
 
 
 sol = Solution()
-print(sol.moveZeroes([1, 2, 0, 3, 4, 0, 5, 6, 7, 8, 0]))
+print(sol.twoSum([2, 5, 7, 11, 15], 9))
