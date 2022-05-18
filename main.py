@@ -2,19 +2,19 @@ from typing import List
 
 
 class Solution:
-    def searchInsert(self, numberList: List[int], target: int) -> int:
-        left = 0
-        right = len(numberList)-1
+    def sortedSquares(self, numberList: List[int]) -> List[int]:
+        result = [0]*len(numberList)
+        left, right = 0, len(numberList)-1
         while left <= right:
-            mid = left + (right - left)//2
-            if numberList[mid] == target:
-                return mid
-            if numberList[mid] < target:
-                left = mid + 1
+            leftNum, rightNum = abs(numberList[left]), abs(numberList[right])
+            if leftNum > rightNum:
+                result[right-left] = leftNum**2
+                left += 1
             else:
-                right = mid - 1
-        return left
+                result[right-left] = rightNum**2
+                right -= 1
+        return result
 
 
 sol = Solution()
-print(sol.searchInsert([1, 3, 5, 6], 9))
+print(sol.sortedSquares([-9, -4, -2, -1, 0, 3, 5, 9, 10]))
