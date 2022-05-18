@@ -3,11 +3,14 @@ from typing import List
 
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        map = {}
-        for i in range(len(numbers)):
-            if target-numbers[i] in map:
-                return [map[target-numbers[i]]+1, i+1]
-            map[numbers[i]] = i
+        left = 0
+        right = len(numbers)-1
+        while numbers[left]+numbers[right] != target:
+            if numbers[left]+numbers[right] < target:
+                left += 1
+            else:
+                right -= 1
+        return [left+1, right+1]
 
 
 sol = Solution()
