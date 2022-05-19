@@ -1,29 +1,28 @@
-from typing import List, Optional
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left: Optional[TreeNode] = left
-        self.right: Optional[TreeNode] = right
+from datetime import datetime
+from typing import List
 
 
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        result: List[int] = []
-        stack: List[TreeNode] = []
-        while stack or root:
-            if root:
-                result.append(root.val)
-                stack.append(root)
-                root = root.left
-            else:
-                temp = stack.pop()
-                root = temp.right
+    def containsDuplicate(self, numbers: List[int]) -> bool:
+        """
+        # O(NLogN)
+        numbers.sort()
+        for i in range(len(numbers)-1):
+            if numbers[i] == numbers[i+1]:
+                result = True
+                break
         return result
+        """
+        # O(N)
+        map = {}
+        i = 1
+        for i in range(len(numbers)):
+            if numbers[i] in map:
+                print([map[numbers[i]], i])
+                return True
+            map[numbers[i]] = i
+        return False
 
 
 sol = Solution()
-tree = TreeNode(1, None, TreeNode(2, TreeNode(
-    3, TreeNode(5), TreeNode(6)), TreeNode(4)))
-print(sol.inorderTraversal(tree))
+print(sol.containsDuplicate([5, 2, 3, 1, 5, 2]))
