@@ -10,11 +10,17 @@ class TreeNode:
 
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if root == None:
-            return []
-        left = self.inorderTraversal(root.left)
-        right = self.inorderTraversal(root.right)
-        return left+right+[root.val]
+        ans = []
+        stack = []
+        while stack or root:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                tmpNode = stack.pop()
+                ans.append(tmpNode.val)
+                root = tmpNode.right
+        return ans
 
 
 sol = Solution()
