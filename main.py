@@ -2,22 +2,14 @@ from typing import List
 
 
 class Solution:
-    def reverse(self, s: str) -> str:
-        left = 0
-        right = len(s)-1
+    def shiftingLetters(self, s: str, shifts: List[int]) -> str:
+        currentShifts = 0
         s = list(s)
-        while left < right:
-            s[left], s[right] = s[right], s[left]
-            left += 1
-            right -= 1
+        for i in range(len(s)-1, -1, -1):
+            currentShifts = (currentShifts + shifts[i]) % 26
+            s[i] = chr((ord(s[i]) - ord('a') + currentShifts) % 26 + ord('a'))
         return ''.join(s)
-
-    def reverseWords(self, s: str) -> str:
-        s = s.split(' ')
-        for i in range(len(s)):
-            s[i] = self.reverse(s[i])
-        return ' '.join(s)
 
 
 sol = Solution()
-print(sol.reverseWords('Let\'s take LeetCode contest'))
+print(sol.shiftingLetters('abc', [1, 1, 24]))
