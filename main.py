@@ -14,11 +14,10 @@ class Solution:
             return []
         left = self.inorderTraversal(root.left)
         right = self.inorderTraversal(root.right)
-        return left+[root.val]+right
+        return left+right+[root.val]
 
 
 sol = Solution()
 tree = TreeNode(1, None, TreeNode(2, TreeNode(
     3, TreeNode(5), TreeNode(6)), TreeNode(4)))
-# tree = TreeNode(1)
 print(sol.inorderTraversal(tree))
