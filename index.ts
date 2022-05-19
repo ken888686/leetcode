@@ -1,23 +1,16 @@
-function reverse(numberList: number[], left: number, right: number): void {
-  while (left <= right) {
-    let temp = numberList[left];
-    numberList[left] = numberList[right];
-    numberList[right] = temp;
-    left++;
-    right--;
-  }
-}
 
-function rotate(numberList: number[], k: number): number[] {
-  k %= numberList.length;
-  reverse(numberList, 0, numberList.length - k - 1);
-  reverse(numberList, numberList.length - k, numberList.length - 1);
-  reverse(numberList, 0, numberList.length - 1);
-  return numberList;
+function climbStairs(n: number): number {
+  let a = 1, b = 1;
+  for (let i = 0; i < n; i++) {
+    let temp = a;
+    a = b;
+    b += temp;
+  }
+  return a;
 };
 
 function main() {
-  console.log(rotate([1, 2, 3], 44));
+  console.log(climbStairs(5));
 }
 
 main();
