@@ -1,28 +1,24 @@
-from typing import Optional
+from typing import List, Optional
 
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
-        self.left: TreeNode | None = left
-        self.right: TreeNode | None = right
+        self.left: Optional[TreeNode] = left
+        self.right: Optional[TreeNode] = right
 
 
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if root == None:
-            return 0
-
-        left = right = 1
-        if root.left != None:
-            left += self.maxDepth(root.left)
-        if root.right != None:
-            right += self.maxDepth(root.right)
-
-        return max(left, right)
+            return []
+        left = self.inorderTraversal(root.left)
+        right = self.inorderTraversal(root.right)
+        return left+[root.val]+right
 
 
 sol = Solution()
-tree = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)),
-                TreeNode(3, TreeNode(6), None))
-print(sol.maxDepth(tree))
+tree = TreeNode(1, None, TreeNode(2, TreeNode(
+    3, TreeNode(5), TreeNode(6)), TreeNode(4)))
+# tree = TreeNode(1)
+print(sol.inorderTraversal(tree))
