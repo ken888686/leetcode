@@ -1,28 +1,17 @@
-from typing import Optional
-
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val: int = val
-        self.next: Optional[ListNode] = next
-
-
 class Solution:
-    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        left: Optional[ListNode] = head
-        right: Optional[ListNode] = head
-        for _ in range(n):
-            right = right.next
-        if right == None:
-            return head.next
-        while right.next:
-            left, right = left.next, right.next
-        left.next = left.next.next
-        return head
+    def isPerfectSquare(self, num: int) -> bool:
+        left = 1
+        right = num
+        while left <= right:
+            mid = left+(right-left)//2
+            if num % mid == 0 and num//mid == mid:
+                return True
+            if (num/mid) < mid:
+                right = mid-1
+            else:
+                left = mid+1
+        return False
 
 
 sol = Solution()
-# head = ListNode(1, ListNode(2, ListNode(
-#     3, ListNode(4, ListNode(5)))))
-head = ListNode(1)
-print(sol.removeNthFromEnd(head, 1))
+print(sol.isPerfectSquare(1))
