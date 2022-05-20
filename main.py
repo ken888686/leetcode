@@ -1,28 +1,46 @@
-from datetime import datetime
-from typing import List
+from typing import List, Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val: int = val
+        self.left: Optional[TreeNode] = left
+        self.right: Optional[TreeNode] = right
 
 
 class Solution:
-    def containsDuplicate(self, numbers: List[int]) -> bool:
-        """
-        # O(NLogN)
-        numbers.sort()
-        for i in range(len(numbers)-1):
-            if numbers[i] == numbers[i+1]:
-                result = True
-                break
-        return result
-        """
-        # O(N)
-        map = {}
-        i = 1
-        for i in range(len(numbers)):
-            if numbers[i] in map:
-                print([map[numbers[i]], i])
-                return True
-            map[numbers[i]] = i
-        return False
+    def isSymmetricByWhileLoop(self, root: Optional[TreeNode]) -> bool:
+        stack: List[TreeNode] = []
+        stack.append(root.right)
+        stack.append(root.left)
+        while len(stack) > 0:
+            t1 = stack.pop()
+            t2 = stack.pop()
+            if t1 == None and t2 == None:
+                continue
+            if t1 == None or t2 == None or t1.val != t2.val:
+                return False
+            stack.append(t1.left)
+            stack.append(t2.right)
+            stack.append(t1.right)
+            stack.append(t2.left)
+        return True
+
+    def isSymmetricByRecursive(self, root: Optional[TreeNode]) -> bool:
+        return self.checkSymmetric(root.left, root.right)
+
+    def checkSymmetric(self, tree1: Optional[TreeNode], tree2: Optional[TreeNode]) -> bool:
+        if tree1 == None and tree2 == None:
+            return True
+        if tree1 == None or tree2 == None or tree1.val != tree2.val:
+            return False
+        return self.checkSymmetric(tree1.left, tree2.right) and self.checkSymmetric(tree1.right, tree2.left)
 
 
 sol = Solution()
-print(sol.containsDuplicate([5, 2, 3, 1, 5, 2]))
+myTree = TreeNode(1,
+                  TreeNode(2, TreeNode(3), None),
+                  TreeNode(2, None, TreeNode(3)))
+# print(sol.isSymmetricByWhileLoop(myTree))
+print(sol.isSymmetricByRecursive(myTree))
+print(sol.isSymmetricByRecursive())
