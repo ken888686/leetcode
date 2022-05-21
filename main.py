@@ -1,18 +1,23 @@
-from typing import List
 
 
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        while m > 0 and n > 0:
-            if nums1[m-1] < nums2[n-1]:
-                nums1[m+n-1] = nums2[n-1]
-                n -= 1
+    def mySqrt(self, x: int) -> int:
+        if x <= 1:
+            return x
+        left, right = 1, x
+        result = 0
+        while left <= right:
+            mid = left+(right-left)//2
+            if (x % mid == 0) and (x/mid == mid):
+                return mid
+            elif x/mid > mid:
+                left = mid+1
+                result = mid
             else:
-                nums1[m+n-1] = nums1[m-1]
-                m -= 1
-        if n > 0:
-            nums1[:n] = nums2[:n]
+                right = mid-1
+        return result
 
 
 sol = Solution()
-print(sol.merge([4, 5, 6, 0, 0, 0], 3, [1, 2, 3], 3))
+ans = sol.mySqrt(48)
+print(ans)
