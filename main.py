@@ -4,13 +4,12 @@ class Solution:
     def mySqrt(self, x: int) -> int:
         if x <= 1:
             return x
-        left, right = 1, x
-        result = 0
+        left, right, result = 1, x, 0
         while left <= right:
             mid = left+(right-left)//2
             if (x % mid == 0) and (x/mid == mid):
                 return mid
-            elif x/mid > mid:
+            if x/mid > mid:
                 left = mid+1
                 result = mid
             else:
@@ -19,5 +18,5 @@ class Solution:
 
 
 sol = Solution()
-ans = sol.mySqrt(48)
+ans = sol.mySqrt(120)
 print(ans)
