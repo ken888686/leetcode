@@ -1,22 +1,21 @@
+from typing import List
 
 
 class Solution:
-    def mySqrt(self, x: int) -> int:
-        if x <= 1:
-            return x
-        left, right, result = 1, x, 0
-        while left <= right:
-            mid = left+(right-left)//2
-            if (x % mid == 0) and (x/mid == mid):
-                return mid
-            if x/mid > mid:
-                left = mid+1
-                result = mid
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        left = 0
+        right = len(letters)
+        while left < right:
+            mid = left + (right - left)//2
+            if ord(letters[mid]) <= ord(target):
+                left = mid + 1
             else:
-                right = mid-1
-        return result
+                right = mid
+        return letters[left % len(letters)]
 
 
 sol = Solution()
-ans = sol.mySqrt(120)
+ans = sol.nextGreatestLetter(
+    letters=["c", "d", "f", "g", "i", "j"],
+    target="j")
 print(ans)
