@@ -1,20 +1,27 @@
-import collections
 from typing import List
 
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        left, right = 0, 1
-        current = 0
-        while right < len(prices):
-            if prices[right] > prices[left]:
-                current = max(current, prices[right]-prices[left])
-            else:
-                left = right
-            right += 1
-        return current
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        if image[sr][sc] == newColor:
+            return image
+        self.fill(image, sr, sc, image[sr][sc], newColor)
+        return image
+
+    def fill(self, image: List[List[int]], sr: int, sc: int, color: int, newColor: int) -> None:
+        if sr < 0 or sr >= len(image) or sc < 0 or sc >= len(image[sr]) or image[sr][sc] != color:
+            return
+        image[sr][sc] = newColor
+        self.fill(image, sr+1, sc, color, newColor)
+        self.fill(image, sr, sc+1, color, newColor)
+        self.fill(image, sr-1, sc, color, newColor)
+        self.fill(image, sr, sc-1, color, newColor)
 
 
 sol = Solution()
-ans = sol.maxProfit([7, 5, 3, 1, 7, 1, 8, 6, 9])
+ans = sol.floodFill(
+    image=[[1, 1, 1], [1, 1, 0], [1, 0, 1]],
+    sr=1,
+    sc=1,
+    newColor=2)
 print(ans)
