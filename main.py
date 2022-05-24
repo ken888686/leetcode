@@ -3,22 +3,18 @@ from typing import List
 
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        left, right, length = 0, len(citations)-1, len(citations)
-        while left <= right:
-            mid = left + (right - left) // 2
-            if (length - mid) <= citations[mid]:
-                right = mid-1
-            else:
-                left = mid+1
-        return length - left
+        length = len(citations)
+        paper = [0] * (length + 1)
+        for c in citations:
+            paper[min(length, c)] += 1
+        s, h = paper[-1], length
+        while h > s:
+            h -= 1
+            s += paper[h]
+        return h
 
 
 sol = Solution()
-ans = [
-    sol.hIndex([0, 1, 3, 5, 6, 7]),
-    sol.hIndex([1, 2, 100]),
-    sol.hIndex([1, 1]),
-    sol.hIndex([1]),
-    sol.hIndex([0])
-]
+data = [1, 3, 2]
+ans = sol.hIndex(data)
 print(ans)
