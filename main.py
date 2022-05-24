@@ -1,19 +1,17 @@
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        map: dict[str, List[str]] = {}
+        map = defaultdict(list)
         route: List[str] = []
         # 建立地圖
         for s, d in tickets:
-            if s in map:
-                map[s].append(d)
-            else:
-                map[s] = [d]
+            map[s].append(d)
         # 機場字母排序
-        for i in map:
-            map[i].sort()
+        for key in map:
+            map[key].sort()
 
         def visit(airport: str):
             # 若無下一個飛行目的地
@@ -31,8 +29,7 @@ class Solution:
             route.append(airport)
         visit("JFK")
 
-        route.reverse()
-        return route
+        return route[::-1]
 
 
 sol = Solution()
