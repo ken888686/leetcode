@@ -2,19 +2,18 @@ from typing import List
 
 
 class Solution:
-    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
-        length = len(original)
-        ans = [[None] * n for _ in range(m)]
-        if length != m*n:
-            return []
-        for i in range(length):
-            ans[i // n][i % n] = original[i]
-        return ans
+    def generate(self, numRows: int) -> List[List[int]]:
+        result: list[list[int]] = []
+        for i in range(numRows):
+            result.append([])
+            for j in range(i + 1):
+                if j in (0, i):
+                    result[i].append(1)
+                else:
+                    result[i].append(result[i-1][j-1] + result[i-1][j])
+        return result
 
 
 sol = Solution()
-ans = sol.construct2DArray(
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    5,
-    2)
+ans = sol.generate(5)
 print(ans)
