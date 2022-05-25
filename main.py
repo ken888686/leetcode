@@ -2,19 +2,19 @@ from typing import List
 
 
 class Solution:
-    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
-        if len(mat) * len(mat[0]) != r * c:
-            return mat
-        ans = [[None]*c for _ in range(r)]
-        matCol = len(mat[0])
-        for i in range(r*c):
-            ans[i // c][i % c] = mat[i // matCol][i % matCol]
+    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
+        length = len(original)
+        ans = [[None] * n for _ in range(m)]
+        if length != m*n:
+            return []
+        for i in range(length):
+            ans[i // n][i % n] = original[i]
         return ans
 
 
 sol = Solution()
-ans = sol.matrixReshape(
-    [[0]],
-    1,
-    1)
+ans = sol.construct2DArray(
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    5,
+    2)
 print(ans)
