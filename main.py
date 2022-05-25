@@ -2,19 +2,19 @@ from typing import List
 
 
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        d = [False] * (len(s) + 1)
-        d[0] = True
-        for i in range(len(s)+1):
-            for j in range(i):
-                if d[j] and s[j:i] in wordDict:
-                    d[i] = True
-                    break
-        return d[len(s)]
+    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+        if len(mat) * len(mat[0]) != r * c:
+            return mat
+        ans = [[None]*c for _ in range(r)]
+        matCol = len(mat[0])
+        for i in range(r*c):
+            ans[i // c][i % c] = mat[i // matCol][i % matCol]
+        return ans
 
 
 sol = Solution()
-ans = sol.wordBreak(s="applepencil", wordDict=["apple", "pencil"])
-print(ans)
-ans = sol.wordBreak(s="a", wordDict=["a"])
+ans = sol.matrixReshape(
+    [[0]],
+    1,
+    1)
 print(ans)
