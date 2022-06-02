@@ -2,16 +2,23 @@ from typing import List
 
 
 class Solution:
-    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
-        row = len(matrix)
-        col = len(matrix[0])
-        result = [[None] * row for _ in range(col)]
-        for i in range(row):
-            for j in range(col):
-                result[j][i] = matrix[i][j]
-        return result
+    def plusOne(self, digits: List[int]) -> List[int]:
+        carry = False
+        digits[len(digits) - 1] += 1
+        for i in range(len(digits)-1, -1, -1):
+            currentNum = digits[i] if not carry else digits[i]+1
+            if currentNum > 9:
+                digits[i] = currentNum % 10
+                carry = True
+            else:
+                digits[i] = currentNum
+                carry = False
+                break
+        if carry:
+            digits.insert(0, 1)
+        return digits
 
 
 sol = Solution()
-ans = sol.transpose([[1, 2, 3], [4, 5, 6]])
+ans = sol.plusOne([9, 2, 9])
 print(ans)
