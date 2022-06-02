@@ -2,14 +2,16 @@ from typing import List
 
 
 class Solution:
-    def hammingWeight(self, n: int) -> int:
-        count = 0
-        while n != 0:
-            n &= (n-1)
-            count += 1
-        return count
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        row = len(matrix)
+        col = len(matrix[0])
+        result = [[None] * row for _ in range(col)]
+        for i in range(row):
+            for j in range(col):
+                result[j][i] = matrix[i][j]
+        return result
 
 
 sol = Solution()
-ans = sol.hammingWeight(int('00001101', 2))
+ans = sol.transpose([[1, 2, 3], [4, 5, 6]])
 print(ans)
