@@ -1,12 +1,15 @@
-from functools import reduce
 from typing import List
 
 
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        return reduce(lambda x, y: x ^ y, nums)
+    def rotate(self, matrix: List[List[int]]) -> None:
+        matrix.reverse()
+        for i in range(len(matrix)):
+            for j in range(i):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        return matrix
 
 
 sol = Solution()
-ans = sol.singleNumber([1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 7, 8, 9, 7, 8, 9])
+ans = sol.rotate([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 print(ans)
