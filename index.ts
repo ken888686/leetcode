@@ -1,23 +1,11 @@
-function palindrome(s: string): boolean {
-  let result = true,
-    left = 0,
-    right = s.length - 1;
-  while (left < right) {
-    if (s[left] !== s[right]) {
-      result = false;
-      break;
-    }
-    left++;
-    right--;
-  }
-  return result;
-  // return s.split("").every((curr, i) => {
-  //   return curr === s[s.length - i - 1];
-  // });
-}
+const reverseInt = (n: number): number => {
+  return (
+    Number.parseInt(n.toString().split("").reverse().join("")) * Math.sign(n)
+  );
+};
 
-function main() {
-  console.log(palindrome("aba"));
-}
+const main = () => {
+  console.log(reverseInt(-124123));
+};
 
 main();
