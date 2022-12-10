@@ -1,22 +1,20 @@
 "use strict";
-function reverse(numberList, left, right) {
-    while (left <= right) {
-        let temp = numberList[left];
-        numberList[left] = numberList[right];
-        numberList[right] = temp;
+function palindrome(s) {
+    let result = true, left = 0, right = s.length - 1;
+    while (left < right) {
+        if (s[left] !== s[right]) {
+            result = false;
+            break;
+        }
         left++;
         right--;
     }
+    return result;
+    // return s.split("").every((curr, i) => {
+    //   return curr === s[s.length - i - 1];
+    // });
 }
-function rotate(numberList, k) {
-    k %= numberList.length;
-    reverse(numberList, 0, numberList.length - k - 1);
-    reverse(numberList, numberList.length - k, numberList.length - 1);
-    reverse(numberList, 0, numberList.length - 1);
-    return numberList;
-}
-;
 function main() {
-    console.log(rotate([1, 2, 3], 44));
+    console.log(palindrome("aba"));
 }
 main();

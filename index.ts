@@ -1,16 +1,23 @@
-
-function climbStairs(n: number): number {
-  let a = 1, b = 1;
-  for (let i = 0; i < n; i++) {
-    let temp = a;
-    a = b;
-    b += temp;
+function palindrome(s: string): boolean {
+  let result = true,
+    left = 0,
+    right = s.length - 1;
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      result = false;
+      break;
+    }
+    left++;
+    right--;
   }
-  return a;
-};
+  return result;
+  // return s.split("").every((curr, i) => {
+  //   return curr === s[s.length - i - 1];
+  // });
+}
 
 function main() {
-  console.log(climbStairs(5));
+  console.log(palindrome("aba"));
 }
 
 main();
