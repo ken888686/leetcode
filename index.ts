@@ -1,20 +1,19 @@
-const maxChar = (str: string): string => {
-  const charMap: { [key: string]: number } = {};
-  let max = 0,
-    maxChar = "";
-  for (let x of str) {
-    charMap[x] = x in charMap ? (charMap[x] += 1) : 1;
-    if (charMap[x] > max) {
-      max = charMap[x];
-      maxChar = x;
+const fizzBuzz = (n: number): void => {
+  for (let i = 1; i <= n; i++) {
+    if (i % 15 === 0) {
+      console.log("fizzbuzz");
+    } else if (i % 3 === 0) {
+      console.log("fizz");
+    } else if (i % 5 === 0) {
+      console.log("buzz");
+    } else {
+      console.log(i);
     }
   }
-
-  return maxChar;
 };
 
 const main = () => {
-  console.log(maxChar("Hello World!"));
+  fizzBuzz(25);
 };
 
 main();

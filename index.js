@@ -1,24 +1,21 @@
 "use strict";
-const maxChar = (str) => {
-    const charMap = {};
-    let max = 0, maxChar = "";
-    for (let x of str) {
-        charMap[x] = x in charMap ? (charMap[x] += 1) : 1;
-        if (charMap[x] > max) {
-            max = charMap[x];
-            maxChar = x;
+const fizzBuzz = (n) => {
+    for (let i = 1; i <= n; i++) {
+        if (i % 15 === 0) {
+            console.log("fizzbuzz");
+        }
+        else if (i % 3 === 0) {
+            console.log("fizz");
+        }
+        else if (i % 5 === 0) {
+            console.log("buzz");
+        }
+        else {
+            console.log(i);
         }
     }
-    // console.log(`${maxChar}: ${max}`);
-    for (let x of str) {
-        console.log(x);
-    }
-    for (let x in str.split("")) {
-        console.log(x);
-    }
-    return "";
 };
 const main = () => {
-    console.log(maxChar("Hello World!"));
+    fizzBuzz(25);
 };
 main();
