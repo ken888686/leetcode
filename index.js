@@ -1,8 +1,24 @@
 "use strict";
-const reverseInt = (n) => {
-    return (Number.parseInt(n.toString().split("").reverse().join("")) * Math.sign(n));
+const maxChar = (str) => {
+    const charMap = {};
+    let max = 0, maxChar = "";
+    for (let x of str) {
+        charMap[x] = x in charMap ? (charMap[x] += 1) : 1;
+        if (charMap[x] > max) {
+            max = charMap[x];
+            maxChar = x;
+        }
+    }
+    // console.log(`${maxChar}: ${max}`);
+    for (let x of str) {
+        console.log(x);
+    }
+    for (let x in str.split("")) {
+        console.log(x);
+    }
+    return "";
 };
 const main = () => {
-    console.log(reverseInt(-124123));
+    console.log(maxChar("Hello World!"));
 };
 main();
